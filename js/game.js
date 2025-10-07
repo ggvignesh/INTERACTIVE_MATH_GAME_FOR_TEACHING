@@ -40,6 +40,35 @@
     timers: [],
   };
 
+  // --- Persistence (simple localStorage)
+  const STORAGE_KEY = 'lcm-balloon-settings-v1';
+  function saveSettingsToStorage() {
+    try {
+      const payload = {
+        numberA: state.numberA,
+        numberB: state.numberB,
+        spawnIntervalMs: state.spawnIntervalMs,
+        fallDurationMs: state.fallDurationMs,
+        targetClicksPerLevel: state.targetClicksPerLevel,
+      };
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
+    } catch (_) { /* ignore */ }
+  }
+  function loadSettingsFromStorage() {
+    try {
+      const raw = localStorage.getItem(STORAGE_KEY);
+      if (!raw) return;
+      const s = JSON.parse(raw);
+      if (s && typeof s === 'object') {
+        if (Number.isFinite(s.numberA)) state.numberA = s.numberA;
+        if (Number.isFinite(s.numberB)) state.numberB = s.numberB;
+        if (Number.isFinite(s.spawnIntervalMs)) state.spawnIntervalMs = s.spawnIntervalMs;
+        if (Number.isFinite(s.fallDurationMs)) state.fallDurationMs = s.fallDurationMs;
+        if (Number.isFinite(s.targetClicksPerLevel)) state.targetClicksPerLevel = s.targetClicksPerLevel;
+      }
+    } catch (_) { /* ignore */ }
+  }
+
   // --- Utility functions
   function lcm(a, b) {
     return (a * b) / gcd(a, b);
@@ -282,6 +311,7 @@
         if (Number.isFinite(spawn)) state.spawnIntervalMs = clamp(400, spawn, 4000);
         if (Number.isFinite(fall)) state.fallDurationMs = clamp(2000, fall, 12000);
         if (Number.isFinite(target)) state.targetClicksPerLevel = clamp(3, target, 12);
+        saveSettingsToStorage();
         updateHud();
         overlay.classList.add('hidden');
       });
@@ -324,7 +354,8 @@
   btnSaveScore.addEventListener("click", saveScore);
   btnCloseOverlay.addEventListener("click", () => overlay.classList.add("hidden"));
 
-  // Welcome overlay on first load
+  // Load saved settings and show welcome overlay
+  loadSettingsFromStorage();
   overlayContent.innerHTML = `
     <h2>Welcome!</h2>
     <p>Click <strong>Start Game</strong> and pop balloons that show <strong>common multiples</strong> of the two numbers.</p>
