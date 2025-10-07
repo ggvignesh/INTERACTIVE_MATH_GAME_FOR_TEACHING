@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LCM Balloon Pop - Math Game</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+    <div id="app">
+        <header class="topbar">
+            <div class="brand">LCM Balloon Pop</div>
+            <div class="hud">
+                <div class="hud-item">Level: <span id="level">1</span></div>
+                <div class="hud-item">Score: <span id="score">0</span></div>
+                <div class="hud-item">Lives: <span id="lives">3</span></div>
+                <div class="hud-item">Time: <span id="timer">60</span>s</div>
+            </div>
+            <button id="btnPause" class="btn">Pause</button>
+        </header>
+
+        <section class="target-panel">
+            <div class="targets">
+                <div class="target">Number A: <span id="numA">4</span></div>
+                <div class="target">Number B: <span id="numB">6</span></div>
+            </div>
+            <div class="goal">Click balloons that are common multiples of A and B!</div>
+        </section>
+
+        <main id="gameArea" class="game-area" aria-label="Balloon play area"></main>
+
+        <footer class="bottombar">
+            <button id="btnStart" class="btn primary">Start Game</button>
+            <button id="btnHow" class="btn">How to Play</button>
+            <button id="btnSettings" class="btn">Settings</button>
+            <button id="btnSaveScore" class="btn">Save Score</button>
+        </footer>
+    </div>
+
+    <div id="overlay" class="overlay hidden" role="dialog" aria-modal="true">
+        <div class="modal">
+            <div class="modal-content" id="overlayContent"></div>
+            <div class="modal-actions">
+                <button id="btnCloseOverlay" class="btn">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <template id="tmpl-balloon">
+        <button class="balloon" type="button" aria-label="Balloon">
+            <span class="label">12</span>
+        </button>
+    </template>
+
+    <script src="js/game.js"></script>
+</body>
+</html>
+
+

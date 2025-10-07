@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: lcm-balloon-pop
+    env: docker
+    plan: free
+    autoDeploy: true
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: 80
+
+
