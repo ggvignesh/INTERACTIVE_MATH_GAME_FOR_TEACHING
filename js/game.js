@@ -178,10 +178,6 @@
     state.timeLeft = 60;
     state.isPaused = false;
     state.correctClicksThisLevel = 0;
-    state.numberA = 4;
-    state.numberB = 6;
-    state.spawnIntervalMs = 1400;
-    state.fallDurationMs = 8000;
     gameArea.innerHTML = "";
     clearTimers();
   }
